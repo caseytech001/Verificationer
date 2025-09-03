@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTZ MINI BOT WEB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Button */
+        .btn {
+            padding: 16px 30px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+            border: 3px solid #ff4444;
+            background: linear-gradient(135deg, 
+                rgba(0, 10, 26, 0.9), 
+                rgba(0, 17, 34, 0.8),
+                rgba(0, 10, 26, 0.9)
+            );
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid #ff4444;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff4444;
+            text-shadow: 0 0 10px #ff4444;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-time {
+            font-size: 0.9rem;
+            color: #ffffff;
+            background: rgba(255, 68, 68, 0.3);
+            padding: 3px 8px;
+            border-radius: 10px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu a:hover {
+            color: #ff4444;
+            text-shadow: 0 0 5px #ff4444;
+        }
+
+        .nav-button {
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ff4444;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
+                        url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop') center/cover;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 68, 68, 0.1) 0%, rgba(0, 0, 0, 1) 70%);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 68, 68, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: #ffffff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #ff4444;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.5);
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 400px;
+            border: 2px solid #ff4444;
+            box-shadow: 0 0 30px #ff4444;
+            border-radius: 10px;
+            margin: 30px auto;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        /* Developer Section */
+        .developer-section {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid rgba(255, 69, 58, 0.4);
+            animation: fadeIn 1.5s ease-out;
+            margin: 50px auto;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 69, 58, 0.2);
+            max-width: 900px;
+        }
+
+        .developer-title {
+            font-size: 2rem;
+            color: #FF4545;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .developer-profile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .developer-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #FF4545;
+            box-shadow: 0 10px 30px rgba(255, 69, 58, 0.4);
+            animation: avatarFloat 3s ease-in-out infinite;
+            object-fit: cover;
+        }
+
+        @keyframes avatarFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        .developer-info {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .developer-name {
+            font-size: 1.8rem;
+            color: #FF4545;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .developer-role {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #FF4545, #FF6B6B);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #FF4545;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 69, 58, 0.3);
+        }
+
+        .social-btn:hover {
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 15px 30px rgba(255, 69, 69, 0.4);
+            background: linear-gradient(45deg, #FF6B6B, #FF8A80);
+            color: white;
+        }
+
+        .social-btn.youtube {
+            background: linear-gradient(45deg, #FF0000, #FF4545);
+        }
+
+        .social-btn.whatsapp {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+        }
+
+        .social-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Pair Code Section */
+        .pair-section {
+            padding: 80px 0;
+            text-align: center;
+            background: #000;
+        }
+
+        .pair-box {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #ff4444;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(255, 68, 68, 0.2);
+            max-width: 500px;
+        }
+
+        .pair-box h3 {
+            color: #ff4444;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+        }
+
+        .pair-box h6 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-container {
+            display: flex;
+            background: linear-gradient(45deg, #333, #444);
+            border-radius: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+            padding: 0.3rem;
+            gap: 0.3rem;
+            max-width: 350px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .input-container input {
+            border-radius: 0.8rem 0 0 0.8rem;
+            background: #222;
+            box-shadow: inset 5px 5px 10px #1a1a1a, inset -5px -5px 10px #2a2a2a;
+            width: 100%;
+            flex-basis: 75%;
+            padding: 1rem;
+            border: none;
+            border-left: 2px solid #ff4444;
+            color: #fff;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            box-shadow: inset 5px 5px 10px #ff6666, inset -5px -5px 10px #2a2a2a;
+        }
+
+        .input-container button {
+            flex-basis: 25%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff4444, #ff6666);
+            font-weight: 900;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            color: white;
+            border: none;
+            border-radius: 0 1rem 1rem 0;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background: linear-gradient(135deg, #ff6666, #ff4444);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.5);
+        }
+
+        #waiting-message {
+            color: #fff;
+            font-weight: bold;
+            margin-top: 1rem;
+            display: none;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.3);
+        }
+
+        #pair {
+            margin-top: 1rem;
+            color: #ff4444;
+            font-weight: bold;
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.3);
+        }
+
+        #pair:hover {
+            color: #ffffff;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #000;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #ff4444;
+            text-shadow: 0 0 10px rgba(255, 68, 68, 0.3);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #ff4444, transparent);
+            border-radius: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(255, 68, 68, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 68, 68, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: #ff4444;
+            box-shadow: 0 10px 30px rgba(255, 68, 68, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #ff4444;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .feature-description {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-button {
+            background: transparent;
+            color: #ff4444;
+            border: 2px solid #ff4444;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .feature-button:hover {
+            background: #ff4444;
+            color: #ffffff;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000;
+            border-top: 2px solid #ff4444;
+            padding: 3rem 0 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 68, 68, 0.1) 0%, rgba(0, 0, 0, 1) 70%);
+            z-index: 0;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social-links a {
+            color: #ff4444;
+            font-size: 2rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-social-links a:hover {
+            color: #ffffff;
+            transform: scale(1.2);
+        }
+
+        .footer-text {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px rgba(255, 68, 68, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                border-bottom: 2px solid #ff4444;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            .input-container input {
+                border-radius: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .input-container button {
+                border-radius: 0.8rem;
+                width: 100%;
+            }
+
+            .pair-box {
+                width: 90%;
+            }
+
+            .developer-section {
+                padding: 20px;
+                margin: 30px 15px;
+            }
+            
+            .developer-info {
+                text-align: center;
+            }
+        }
+
+        /* Toast Notification Styling */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            color: #ffffff;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            font-size: 1rem;
+            font-weight: bold;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Navigation -->
+        <nav class="nav-container">
+            <div class="container">
+                <div class="nav">
+                    <div class="logo">
+                        DTZ MINI BOT v2
+                        <div class="logo-time" id="currentTime"></div>
+                    </div>
+                    <ul class="nav-menu" id="navMenu">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#pair">Pair Code</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <h1 class="hero-title">DTZ MINI BOT v2</h1>
+                
+                <section class="developer-section">
+                    <img src="https://i.ibb.co/xqNJx0n7/AcdMd.jpg" alt="DTZ MINI BOT" class="hero-image">        
+                    <div class="developer-info">
+                        <h3 class="developer-name">CREATED BY DARK TECH ZONE TEAM</h3>
+                        <p class="developer-role">THE DTZ MINI BOT V1 Created By The Dark Tech Zone. Specially Thanks To DTZ LOKU ASHU, DTZ CRAZY DINA, DTZ CRAZY CHUTTA & Others. You Can Use The Bot With The Most Advanced, Creative Cutting Edge Features & Entertainment.</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://whatsapp.com/channel/0029VbAb56wFcow9VF8VdX3S" class="social-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Channel
+                        </a>
+                        <a href="https://youtube.com/@darktechzone" class="social-btn youtube">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Pair Code Section -->
+        <section class="pair-section" id="pair">
+            <div class="container">
+               <h2 class="section-title">Pair Your Device</h2>
+                  <div class="pair-box">
+                    <h3>DTZ MINI BOT PAIRING</h3>
+                    <h6>Enter your number with country code.</h6>
+                    <div class="input-container">
+                        <input placeholder="+94742287793" type="number" id="number" name="">
+                        <button id="submit">Enter</button>
+                    </div>
+                    <div id="waiting-message" style="display: none;">In process...</div>
+                    <div id="pair-result"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-social-links">
+                        <a href="https://whatsapp.com/channel/0029VbAb56wFcow9VF8VdX3S" title="WhatsApp Channel"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://youtube.com/@darktechzone" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-text">
+                    © 2025 Dᴛᴢ ᴍɪɴɪ ʙᴏᴛ ᴠ2 | ᴄʀᴇᴀᴛᴇᴅ ʙʏ ᴅᴀʀᴋ ᴛᴇᴄʜ ᴢᴏɴᴇ ᴛᴇᴀᴍ
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <script>
+        // Mobile Menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Pair Code Functionality
+        let pairOutput = document.getElementById("pair-result");
+        let submitBtn = document.getElementById("submit");
+        let numberInput = document.getElementById("number");
+
+        async function copyPairCode() {
+            let text = document.getElementById("copy").innerText;
+            let obj = document.getElementById("copy");
+            try {
+                await navigator.clipboard.writeText(obj.innerText.replace('CODE: ', ''));
+                obj.innerText = "COPIED";
+                obj.style = "color:#ff6666;font-weight:bold";
+                setTimeout(() => {
+                    obj.innerText = text;
+                    obj.style = "color:#ff4444;font-weight:bold";
+                }, 1500);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        }
+
+        submitBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            if (!numberInput.value) {
+                pairOutput.innerHTML = '<p style="color:#fff;font-weight:bold">Enter your WhatsApp number with country code.</p>';
+            } else if (numberInput.value.replace(/[^0-9]/g, "").length < 11) {
+                pairOutput.innerHTML = '<p style="color:#fff;font-weight:bold">Invalid number format</p>';
+            } else {
+                const bc = numberInput.value.replace(/[^0-9]/g, "");
+                let bb = "";
+                let bbc = "";
+                const cc = bc.split('');
+                cc.map(a => {
+                    bbc += a;
+                    if (bbc.length == 3) {
+                        bb += " " + a;
+                    } else if (bbc.length == 8) {
+                        bb += " " + a;
+                    } else {
+                        bb += a;
+                    }
+                });
+                numberInput.type = "text";
+                numberInput.value = "+" + bb;
+                numberInput.style = "color:#fff;font-size:20px";
+                pairOutput.innerHTML = '<p style="color:#fff;font-weight:bold">Please wait for some time</p>';
+                
+                try {
+                    // This would be replaced with your actual API call
+                    // let { data } = await axios(`/code?number=${bc}`);
+                    // let code = data.code || "Service Unavailable";
+                    
+                    // Simulating API response for demonstration
+                    setTimeout(() => {
+                        const code = Math.floor(100000 + Math.random() * 900000);
+                        pairOutput.innerHTML = '<div id="copy" onclick="copyPairCode()" style="color:#ff4444;font-weight:bold;font-size:1.2rem;cursor:pointer;">CODE: <span style="color:#fff;font-weight:bold">' + code + '</span></div>';
+                    }, 2000);
+                } catch (error) {
+                    console.error('Error:', error);
+                    pairOutput.innerHTML = '<p style="color:#fff;font-weight:bold">Service Unavailable. Please try again later.</p>';
+                }
+            }
+        });
+
+        // Update Time
+        function updateTime() {
+            const now = new Date();
+            const timeElement = document.getElementById('currentTime');
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pair-box, .developer-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
